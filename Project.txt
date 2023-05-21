@@ -1,0 +1,38 @@
+Terminal Library Management
+
+There are three actors in this program, namely, librarian, user and
+books.
+
+The books will have author, name, publication, rented date,
+rented user.
+The librarian can add books. The librarian will have fields such as
+name and contact information.
+The user will register in the library by providing his name, contact
+Information.
+
+The users may take the books for rental. The users will have name,
+and contact details. The user will have registration and login.
+
+Design a JSON files users.json, librarian.json and books.json storing the data. 
+                                        OR
+Design a SQL database with tables users, librarian, books.
+                                         
+
+Design a menu
+Main Menu
+1)	Register
+     2)Login
+User
+	1) See book details
+         2) Rent Book
+         3) Return Book
+         4) Display Fine 
+
+Librarian
+a)	See book details
+b)	add books
+c)	delete books
+d)	update book details
+
+fine calculation
+If a book is rented out for more than 7 days, a fine of Rs.50/- will be added to the user. And there after Rs.50/- for every 7 days like that.

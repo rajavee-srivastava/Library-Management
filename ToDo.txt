@@ -1,0 +1,136 @@
+to do list: Planning stepwise the code:
+
+---- Build the app using poetry to ensure that all dependencies are managed properly
+
+1. Config.py : Contains details about the user's mysql connection
+2. lms.sql : Code to create library management database
+	-- Create database
+	-- Create 3 tables:: Books, Librarian, User
+3. Python code to create application:
+	Has to be in MVC architecture:
+		Model:
+			1. register.py
+				-- register new users/librarian and assign a unique id to them in the database
+					-> Ask details (Name, Contact, Address, Email)
+					-> Ask Username and Password 
+					-> Save the data to the respective table in the database
+					-> Assign unique ID to the user/librarian and set it as the primary key
+			2. login.py
+				-- login new users/librarian 
+					-> Ask if user or librarian
+					-> Get username and password
+					-> Verify if they are true from the database
+					-> Allow 3 tries to enter a password
+					-> Return successfully logged in and display the respective menu
+			3. user_manager.py
+				-- function input (recieved from controller class)
+					-- See book details:
+						-> show the books in the library (book_id, Name, author, summary available or not)
+					-- Rent book;
+						-> Ask book name and author
+						-> Show the book details from the table to confirm the book
+						-> Assign the book to the user
+						-> Record the date assigned and inform the user of the return date
+					-- Return book:
+						-> Print the books assigned to the user
+						-> Ask which book he would like to return
+						-> Check if the input book is assigned to the user
+						-> Call the [fine function]:
+							-- Check the date the book was assigned
+							-- Calculate the number of days between the book assignment and return
+							-- Calculate fines if any
+								- If number of days < 7 : No fine
+								- If number of days > 7 : 50 rs fine
+								- for every 7 days add 50 rs 
+							-- Remove the book from the user's list and update the book table accordingly
+					-- Display fines:
+						-> View all the books that have been assigned to the user
+						-> Calculate the number of days since the books were assigned
+						-> Use the fine function to calculate fines if any for each book
+						-> Display the books which are fined
+			4. librarian_manager.py
+				-- function input (from the controller class)
+					-- See book details:
+						-> show the books in the library (book_id, Name, author, summary available or not)
+					-- Add book:
+						-> Get data from the librarian (Name, author, summary, publication, etc)
+						-> Add data to the book table
+					-- Delete book:
+						-> Ask which book they want to delete
+						-> Check the table to see if it is assigned to someone
+						-> Locate the book from the table and show the details to confirm if the want to delete the book
+						-> Remove the book from the catalogue
+					-- Update book details:
+						-> Ask which book they want to delete
+						-> Check the table to see if it is assigned to someone
+						-> Locate the book from the table and show the details to confirm if the want to update the book
+						-> Ask what they would like to edit in the book details
+						-> Update the book in the catalogue
+
+		View:
+			Menus:
+				-- Main menu: -> Register or login?
+					1. Register: -> Are you a User or a Librarian
+					2. Login: -> Select if user or librarian
+							  -> Username and Password
+						- Ask if user/librarian
+							-- Ask Username
+							-- Ask Password
+								If username and password match, login the user to the system. 
+								Give 3 tries to get the combination right. 
+				-- User Menu: -> 4 options: View Books, Rent Book, Return Book, Check Fines.
+					1. View books available in the library:
+						-- List all the books(Name, Author, Summary, Available or Not)
+					2. Rent book:
+						-- Check if available
+							- Assign the book to the user
+							- Give out the date of return
+							- Update the book table accordingly
+					3. Return Book:
+						-- Check if the book was assigned to the user
+							- Check for any due fines
+							- update the book database
+					4. Display Fines:
+						-- Verify with the database to print any fines remaining
+				
+				-- Librarian Menu: -> 4 Options: View Books, Add Books, Delete Books, Update Book Details.
+					1. See book details:
+						-- List all the books(Name, Author, Summary, Available or Not)
+					2. Add books:
+						-- Add books to database
+							- Verify if the same book is already present in the library or not
+					3. Delete books:
+						-- Remove book from the database
+							- Check if the book is assigned to a user
+							- Remove the book from the database
+					4. Update book details:
+						-- Check if book exists
+						-- Update field accordingly		
+		Controller:
+			1. Display Main Menu:
+				If Register:
+					-- Call register method from model
+					---Return ("User/Librarian successfully registered. Please login to use the library management system.")
+				If Login:
+					-- Call login method from model
+					-- Returns respective menu from view class
+						- If logged in as a user return user menu
+						- If logged in as a librarian return librarian menu
+			2. IF displayed user menu:
+				-- Call function depending on user choice
+					[Functions Required:
+						- View book details
+						- Rent a book as a user
+						- Return a book as a user
+						- Display fines for the logged in user
+						]
+			3. IF displayed librarian menu:
+				-- Call functions from model class based on user choice
+					[Functions Required:
+						- View book details
+						- Add a new book
+						- Delete a book
+						- update book details
+						]
+						
+						

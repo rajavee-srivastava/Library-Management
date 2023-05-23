@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "librarymanagement"
+version = "0.1.0"
+description = "Python app for managing a library"
+authors = ["rajavee-srivastava <rajaveesrivastava@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
